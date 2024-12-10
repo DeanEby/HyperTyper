@@ -1,3 +1,7 @@
+## Design
+https://excalidraw.com/#json=4cDlCJ6W320-zrAlva5Xk,kJHBQ6cEC6_Yu0VqMJFkFA
+
+
 ## TODO
 This is the beginning of the development, so there is a lot to do
 
