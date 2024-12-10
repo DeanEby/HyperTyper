@@ -1,0 +1,41 @@
+[gd_scene load_steps=6 format=3 uid="uid://dor8cd6ldvlex"]
+
+[ext_resource type="Script" path="res://Enemy.gd" id="1_qtvs8"]
+[ext_resource type="FontFile" uid="uid://badmgwaj1057d" path="res://assets/SpaceMono-Regular.ttf" id="2_rbeea"]
+[ext_resource type="Texture2D" uid="uid://l7sc070m8r5f" path="res://assets/homemade/cowboy 2x96.png" id="3_na78k"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_oifm7"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_na78k")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1wd5u"]
+size = Vector2(42, 81.875)
+
+[node name="Enemy" type="CharacterBody2D"]
+position = Vector2(348, 134)
+script = ExtResource("1_qtvs8")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+offset_left = -77.0
+offset_top = 52.0
+offset_right = 77.0
+offset_bottom = 81.0
+theme_override_fonts/normal_font = ExtResource("2_rbeea")
+bbcode_enabled = true
+text = "PlaceHolder:"
+scroll_active = false
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_oifm7")
+flip_h = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(3, 7.0625)
+shape = SubResource("RectangleShape2D_1wd5u")

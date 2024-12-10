@@ -1,0 +1,49 @@
+[gd_scene load_steps=7 format=3 uid="uid://ctpellp1jjdhq"]
+
+[ext_resource type="Texture2D" uid="uid://cximn0jxy1pof" path="res://assets/kenney_space-shooter-redux/Backgrounds/blue.png" id="1_1f37m"]
+[ext_resource type="Script" path="res://Main.gd" id="1_p24jb"]
+[ext_resource type="FontFile" uid="uid://badmgwaj1057d" path="res://assets/SpaceMono-Regular.ttf" id="2_mrqke"]
+[ext_resource type="Texture2D" uid="uid://l7sc070m8r5f" path="res://assets/homemade/cowboy 2x96.png" id="3_pu2ep"]
+[ext_resource type="Script" path="res://Enemy.gd" id="3_x7s6o"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_oifm7"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_pu2ep")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="Main" type="Node2D"]
+script = ExtResource("1_p24jb")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+offset_left = -13.0
+offset_top = -13.0
+offset_right = 971.0
+offset_bottom = 554.0
+texture = ExtResource("1_1f37m")
+stretch_mode = 1
+
+[node name="Enemy" type="CharacterBody2D" parent="."]
+position = Vector2(348, 134)
+script = ExtResource("3_x7s6o")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Enemy"]
+offset_left = -77.0
+offset_top = 52.0
+offset_right = 77.0
+offset_bottom = 81.0
+theme_override_fonts/normal_font = ExtResource("2_mrqke")
+bbcode_enabled = true
+text = "[center]PlaceHolder:[/center]"
+scroll_active = false
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Enemy"]
+sprite_frames = SubResource("SpriteFrames_oifm7")
+flip_h = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Enemy"]

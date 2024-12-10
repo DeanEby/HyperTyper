@@ -1,0 +1,141 @@
+[gd_scene load_steps=7 format=3 uid="uid://ctpellp1jjdhq"]
+
+[ext_resource type="Texture2D" uid="uid://cximn0jxy1pof" path="res://assets/kenney_space-shooter-redux/Backgrounds/blue.png" id="1_1f37m"]
+[ext_resource type="Script" path="res://Main.gd" id="1_p24jb"]
+[ext_resource type="FontFile" uid="uid://badmgwaj1057d" path="res://assets/SpaceMono-Regular.ttf" id="2_mrqke"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_gd3l1"]
+font = ExtResource("2_mrqke")
+font_size = 32
+
+[sub_resource type="LabelSettings" id="LabelSettings_6xo6e"]
+font = ExtResource("2_mrqke")
+font_size = 20
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ffwvw"]
+size = Vector2(32, 573)
+
+[node name="Main" type="Node2D"]
+script = ExtResource("1_p24jb")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+offset_left = -13.0
+offset_top = -13.0
+offset_right = 971.0
+offset_bottom = 554.0
+texture = ExtResource("1_1f37m")
+stretch_mode = 1
+
+[node name="SpawnContainer" type="Node2D" parent="."]
+
+[node name="Marker2D" type="Marker2D" parent="SpawnContainer"]
+position = Vector2(1007, 88)
+
+[node name="Marker2D2" type="Marker2D" parent="SpawnContainer"]
+position = Vector2(1009, 204)
+
+[node name="Marker2D3" type="Marker2D" parent="SpawnContainer"]
+position = Vector2(1007, 326)
+
+[node name="Marker2D4" type="Marker2D" parent="SpawnContainer"]
+position = Vector2(1007, 463)
+
+[node name="EnemyContainer" type="Node2D" parent="."]
+
+[node name="SpawnTimer" type="Timer" parent="."]
+wait_time = 5.0
+
+[node name="DifficultyTimer" type="Timer" parent="."]
+wait_time = 10.0
+autostart = true
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="GameOverScreen" type="PanelContainer" parent="CanvasLayer"]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+
+[node name="CenterContainer" type="CenterContainer" parent="CanvasLayer/GameOverScreen"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/GameOverScreen/CenterContainer"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Label" type="Label" parent="CanvasLayer/GameOverScreen/CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_mrqke")
+text = "YOU LOSE"
+label_settings = SubResource("LabelSettings_gd3l1")
+
+[node name="RestartButton" type="Button" parent="CanvasLayer/GameOverScreen/CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_mrqke")
+text = "RESTART"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="TopRow" type="CenterContainer" parent="CanvasLayer/VBoxContainer"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="TopRow2" type="HBoxContainer" parent="CanvasLayer/VBoxContainer/TopRow"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="EnemiesKilledLabel" type="Label" parent="CanvasLayer/VBoxContainer/TopRow/TopRow2"]
+layout_mode = 2
+text = "Killed:"
+label_settings = SubResource("LabelSettings_6xo6e")
+
+[node name="EnemiesKilledValue" type="Label" parent="CanvasLayer/VBoxContainer/TopRow/TopRow2"]
+layout_mode = 2
+text = "0
+"
+label_settings = SubResource("LabelSettings_6xo6e")
+
+[node name="MiddleRow" type="HBoxContainer" parent="CanvasLayer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 2
+
+[node name="BottomRow" type="HBoxContainer" parent="CanvasLayer/VBoxContainer"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/VBoxContainer/BottomRow"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="DifficultyLabel" type="Label" parent="CanvasLayer/VBoxContainer/BottomRow/HBoxContainer"]
+layout_mode = 2
+text = "  Difficulty:"
+label_settings = SubResource("LabelSettings_6xo6e")
+
+[node name="DifficultyValue" type="Label" parent="CanvasLayer/VBoxContainer/BottomRow/HBoxContainer"]
+layout_mode = 2
+text = "0
+"
+label_settings = SubResource("LabelSettings_6xo6e")
+
+[node name="LoseArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LoseArea"]
+position = Vector2(-44, 269)
+shape = SubResource("RectangleShape2D_ffwvw")
+
+[connection signal="timeout" from="SpawnTimer" to="." method="_on_spawn_timer_timeout"]
+[connection signal="timeout" from="DifficultyTimer" to="." method="_on_difficulty_timer_timeout"]
+[connection signal="pressed" from="CanvasLayer/GameOverScreen/CenterContainer/VBoxContainer/RestartButton" to="." method="_on_restart_button_pressed"]
+[connection signal="body_entered" from="LoseArea" to="." method="_on_lose_area_body_entered"]
