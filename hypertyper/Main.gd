@@ -21,12 +21,20 @@ func restart_game():
 		child.queue_free()
 	start_game()
 
-func _unhandled_input(event: InputEvent) -> void:
-	if event is InputEventKey and event.is_pressed():
-		var typed_event = event as InputEventKey
-		# get the character that the user typed
-		var key_typed = PackedByteArray([typed_event.unicode]).get_string_from_utf8()
-		GlobalSignals.emit_signal("keyboard_input", key_typed)
+#func _unhandled_input(event: InputEvent) -> void:
+	#if event is InputEventKey and event.is_pressed():
+		#var typed_event = event as InputEventKey
+		##print("keycode:", typed_event.keycode)
+		#var key_typed = PackedByteArray([typed_event.unicode]).get_string_from_utf8()
+#
+		#if typed_event.as_text_keycode() == "Shift":
+			#
+			#print("shift")
+			#
+		#else:
+			#pass
+		## get the character that the user typed
+			##GlobalSignals.emit_signal("keyboard_input", key_typed)
 		
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.

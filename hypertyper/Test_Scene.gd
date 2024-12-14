@@ -25,7 +25,7 @@ var enemies_killed: int = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	GlobalSignals.keyboard_input.connect(handle_key_input)
+	KeyboardInput.keyboard_input.connect(handle_key_input)
 	start_stage()
 	pass
 

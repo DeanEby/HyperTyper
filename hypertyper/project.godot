@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 
 TestPrompts="*res://TestPrompts.gd"
 GlobalSignals="*res://GlobalSignals.gd"
+KeyboardInput="*res://KeyboardInput.gd"
 
 [display]
 
