@@ -1,11 +1,31 @@
 extends Node2D
 
-@export var scenes:Array[PackedScene] = []
+@onready var stage_loader = %StageLoader
+
+@onready var main_ui = %MainUI
+
+@export var ui:Array[PackedScene] = []
+#Add scenes in inspector
+@export var stages:Array[PackedScene] = []
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	GlobalSignals.stage_round_over.connect(handle_round_over)
+	GlobalSignals.restart_game.connect(start_game)
 	start_game()
+	
 	pass
+	
+	
+	
+
+func _unhandled_input(event: InputEvent) -> void:
+	if event is InputEventKey and event.is_pressed():
+		var typed_event = event as InputEventKey
+		# get the character that the user typed
+		var key_typed = PackedByteArray([typed_event.unicode]).get_string_from_utf8()
+		GlobalSignals.emit_signal("keyboard_input", key_typed)
+		
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -16,11 +36,20 @@ func start_game():
 	load_stage()
 	pass
 
-
+	# will probably want to move this out of main soon
 func load_stage():
 	# [0] for now need to change later
-	var new_scene = scenes[0]
-	new_scene = new_scene.instantiate()
-	add_child(new_scene)
+	#print(scenes[0])
+	var new_stage = stages[0]
+	new_stage = new_stage.instantiate()
+	# needed so we can remove scenes without removing other main children
+	stage_loader.add_child(new_stage)
 	
+func handle_round_over():
+	
+	for scene in stage_loader.get_children():
+		scene.queue_free()
+	var game_over_screen = ui[0]
+	game_over_screen = game_over_screen.instantiate()
+	main_ui.add_child(game_over_screen)
 	

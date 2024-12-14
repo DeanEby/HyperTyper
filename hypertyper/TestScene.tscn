@@ -1,8 +1,7 @@
-[gd_scene load_steps=7 format=3 uid="uid://ctpellp1jjdhq"]
+[gd_scene load_steps=6 format=3 uid="uid://ctpellp1jjdhq"]
 
 [ext_resource type="Script" path="res://Test_Scene.gd" id="1_akgv8"]
 [ext_resource type="Texture2D" uid="uid://cximn0jxy1pof" path="res://assets/kenney_space-shooter-redux/Backgrounds/blue.png" id="2_np3dx"]
-[ext_resource type="PackedScene" uid="uid://bychii3128q7q" path="res://game_over_screen.tscn" id="3_chvyt"]
 [ext_resource type="FontFile" uid="uid://badmgwaj1057d" path="res://assets/SpaceMono-Regular.ttf" id="4_8tqd2"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_6xo6e"]
@@ -47,8 +46,6 @@ wait_time = 10.0
 autostart = true
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
-
-[node name="GameOverScreen" parent="CanvasLayer" instance=ExtResource("3_chvyt")]
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer"]
 anchors_preset = 15

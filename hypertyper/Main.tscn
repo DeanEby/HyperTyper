@@ -1,8 +1,16 @@
-[gd_scene load_steps=3 format=3 uid="uid://sveqyc8m8kif"]
+[gd_scene load_steps=4 format=3 uid="uid://sveqyc8m8kif"]
 
 [ext_resource type="Script" path="res://Main.gd" id="1_p24jb"]
 [ext_resource type="PackedScene" uid="uid://ctpellp1jjdhq" path="res://TestScene.tscn" id="2_0x3mr"]
+[ext_resource type="PackedScene" uid="uid://bychii3128q7q" path="res://game_over_screen.tscn" id="2_bw04h"]
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_p24jb")
-scenes = Array[PackedScene]([ExtResource("2_0x3mr")])
+ui = Array[PackedScene]([ExtResource("2_bw04h")])
+stages = Array[PackedScene]([ExtResource("2_0x3mr")])
+
+[node name="StageLoader" type="Node2D" parent="."]
+unique_name_in_owner = true
+
+[node name="MainUI" type="CanvasLayer" parent="."]
+unique_name_in_owner = true

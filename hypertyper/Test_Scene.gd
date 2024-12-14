@@ -13,8 +13,6 @@ var Enemy = preload("res://Enemy.tscn")
 @onready var difficulty_value = $CanvasLayer/VBoxContainer/BottomRow/HBoxContainer/DifficultyValue
 @onready var killed_value = $CanvasLayer/VBoxContainer/TopRow/TopRow2/EnemiesKilledValue
 
-@onready var game_over_screen = $CanvasLayer/GameOverScreen
-
 var active_enemy = null
 
 # for the active enemy, which character are we on
@@ -27,6 +25,7 @@ var enemies_killed: int = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	GlobalSignals.keyboard_input.connect(handle_key_input)
 	start_stage()
 	pass
 
@@ -59,13 +58,7 @@ func find_new_active_enemy(typed_character: String):
 			return
 
 
-func _unhandled_input(event: InputEvent) -> void:
-	if event is InputEventKey and event.is_pressed():
-		var typed_event = event as InputEventKey
-		# get the character that the user typed
-		var key_typed = PackedByteArray([typed_event.unicode]).get_string_from_utf8()
-		#print(key_typed)
-		
+func handle_key_input(key_typed):
 		if active_enemy == null:
 			find_new_active_enemy(key_typed)
 		else:
@@ -114,23 +107,21 @@ func _on_difficulty_timer_timeout() -> void:
 
 
 func _on_lose_area_body_entered(body: Node2D) -> void:
-	game_over()
+	GlobalSignals.emit_signal("stage_round_over")
 	
-func game_over():
-	game_over_screen.show()
-	spawn_timer.stop()
-	difficulty_timer.stop()
-	active_enemy = null
-	current_letter_index = -1
-	#clear out stuff
-	for enemy in enemy_container.get_children():
-		enemy.queue_free()
-	
+#func game_over():
+	#
+	#spawn_timer.stop()
+	#difficulty_timer.stop()
+	#active_enemy = null
+	#current_letter_index = -1
+	##clear out stuff
+	#for enemy in enemy_container.get_children():
+		#enemy.queue_free()
 	
 	
 func start_stage():
 	print("stage started" + self.name)
-	game_over_screen.hide()
 	difficulty = 0
 	enemies_killed = 0
 	difficulty_value.text = "0"
@@ -140,9 +131,7 @@ func start_stage():
 	difficulty_timer.start()
 	spawn_enemy()
 	
-	
 
 
-func _on_restart_button_pressed() -> void:
-	start_stage()
+
 	

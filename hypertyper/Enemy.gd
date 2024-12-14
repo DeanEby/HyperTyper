@@ -6,7 +6,7 @@ extends CharacterBody2D
 @export var blue = Color("#22c995")
 @export var white = Color("#ffffff")
 
-@export var speed = 0.5
+@export var speed = 3
 
 
 
