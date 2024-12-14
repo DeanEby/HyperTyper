@@ -107,17 +107,19 @@ func _on_difficulty_timer_timeout() -> void:
 
 
 func _on_lose_area_body_entered(body: Node2D) -> void:
+	round_over()
 	GlobalSignals.emit_signal("stage_round_over")
 	
-#func game_over():
-	#
-	#spawn_timer.stop()
-	#difficulty_timer.stop()
-	#active_enemy = null
-	#current_letter_index = -1
-	##clear out stuff
-	#for enemy in enemy_container.get_children():
-		#enemy.queue_free()
+	
+func round_over():
+	
+	spawn_timer.stop()
+	difficulty_timer.stop()
+	active_enemy = null
+	current_letter_index = -1
+	#clear out stuff
+	for enemy in enemy_container.get_children():
+		enemy.queue_free()
 	
 	
 func start_stage():

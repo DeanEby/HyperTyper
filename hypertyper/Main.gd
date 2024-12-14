@@ -11,13 +11,15 @@ extends Node2D
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	GlobalSignals.stage_round_over.connect(handle_round_over)
-	GlobalSignals.restart_game.connect(start_game)
+	GlobalSignals.restart_game.connect(restart_game)
 	start_game()
 	
 	pass
 	
-	
-	
+func restart_game():
+	for child in main_ui.get_children():
+		child.queue_free()
+	start_game()
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventKey and event.is_pressed():
