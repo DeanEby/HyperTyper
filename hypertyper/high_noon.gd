@@ -26,7 +26,10 @@ var enemies_killed: int = 0
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	KeyboardInput.keyboard_input.connect(handle_key_input)
+	print("high noon")
 	start_stage()
+	pass
+
 
 func strip_BB_code_tags(text: String) -> String:
 	var regex = RegEx.new()

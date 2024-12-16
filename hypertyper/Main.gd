@@ -12,9 +12,9 @@ extends Node2D
 func _ready() -> void:
 	GlobalSignals.stage_round_over.connect(handle_round_over)
 	GlobalSignals.restart_game.connect(restart_game)
+	GlobalSignals.scene_select.connect(load_stage)
 	start_game()
-	
-	pass
+
 	
 func restart_game():
 	for child in main_ui.get_children():
@@ -35,31 +35,37 @@ func restart_game():
 			#pass
 		## get the character that the user typed
 			##GlobalSignals.emit_signal("keyboard_input", key_typed)
-		
-	
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
 
 
 func start_game():
-	load_stage()
+	var main_menu = ui[0]
+	main_menu = main_menu.instantiate()
+	main_ui.add_child(main_menu)
+	#load_stage()
 	pass
 
 	# will probably want to move this out of main soon
-func load_stage():
+func load_stage(stage):
+	var new_stage
+	if stage == "HighNoon":
+		new_stage = stages[1]
+	if stage == "TestScene":
+		new_stage = stages[0]
+	else:
+		print("woops stage name is not valid")
 	# [0] for now need to change later
-	#print(scenes[0])
-	var new_stage = stages[0]
 	new_stage = new_stage.instantiate()
 	# needed so we can remove scenes without removing other main children
 	stage_loader.add_child(new_stage)
+	for child in main_ui.get_children():
+		child.queue_free()
+	
 	
 func handle_round_over():
 	
 	for scene in stage_loader.get_children():
 		scene.queue_free()
-	var game_over_screen = ui[0]
+	var game_over_screen = ui[1]
 	game_over_screen = game_over_screen.instantiate()
 	main_ui.add_child(game_over_screen)
 	

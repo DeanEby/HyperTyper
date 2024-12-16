@@ -64,8 +64,3 @@ func get_bbcode_end_color_tag() -> String:
 func set_center_tags(string_to_center: String):
 	# inefficient
 	return "[center]" + string_to_center + "[/center]"
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
